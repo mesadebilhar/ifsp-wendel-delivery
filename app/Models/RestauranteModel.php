@@ -45,7 +45,7 @@ class RestauranteModel extends Model
     protected $afterDelete    = [];
 
     public function getRestaurantes(){
-        return $this->select('restaurante.id_restaurante,restaurante_nome,endereco_restaurante,dono_fk.nome')
+        return $this->select('restaurante.id_restaurante,restaurante_nome,endereco_restaurante, u.nome')
         ->join('usuario u', 'restaurante.dono_fk = u.id_user')
         ->findAll();
     }

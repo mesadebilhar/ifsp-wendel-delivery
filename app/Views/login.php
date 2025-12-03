@@ -62,7 +62,7 @@
                         <input type="password" name="senha" id="">
                     </div>
                     <div class="left-align bottom-padding top-padding">
-                        <button class="primary"><i>login</i> LOGIN</button>
+                        <button class="primary" type="submit" name="info" value="login"><i>login</i> LOGIN</button>
                     </div>
                     <!--Senha Formulário@-->
                 </div>
@@ -92,7 +92,7 @@
                         <input type="password" name="senha">
                     </div>
                     <div class="left-align top-padding">
-                        <button class="primary"><i>login</i> Cadastrar </button>
+                        <button class="primary" name="info" value="registrar"><i>login</i> Cadastrar </button>
                     </div>
                     <!--Formulário Registrar@-->
                 </div>
