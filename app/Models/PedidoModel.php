@@ -4,15 +4,19 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UsuarioModel extends Model
+class PedidoModel extends Model
 {
-    protected $table            = 'usuario';
-    protected $primaryKey       = 'id_user';
+    protected $table            = 'pedido';
+    protected $primaryKey       = 'id_pedido';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    =  ['nome','sobrenome','cpf','email','senha','endereco_user','userType'];
+    protected $allowedFields    = [
+        'id_produto_fk',
+        'id_usuario_fk',
+        'id_restaurante_fk',
+    ];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -44,32 +48,7 @@ class UsuarioModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    //roubado do professor.
-    protected function hashSenha($data)
-    {
-        $data['data']['senha'] = password_hash($data['data']['senha'], PASSWORD_DEFAULT);
-        return $data;
+    public function getPedidos(){
+        return $this->findAll();
     }
-
-    // método para validar usuário/senha (form de Login)
-    public function check($email,$senha) 
-    {
-        //busca o usuário
-        $buscaUsuario = $this->where('email', $email)->where('senha',$senha)->first();
-        if(is_null($buscaUsuario)) {
-            return false;
-        }
-        // validar a senha
-        // if(! password_verify($senha, $buscaUsuario->senha)) {
-        //     return false;
-        // }
-
-        return $buscaUsuario;
-    }
-//     public function check($email, $senha)
-// {
-//     return $this->where('email', $email)
-//                 ->where('senha', $senha) 
-//                 ->first();
-// }
 }

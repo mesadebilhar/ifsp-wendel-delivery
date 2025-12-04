@@ -11,7 +11,7 @@ CREATE TABLE usuario(
     email text not null,
     senha text not null,
     endereco_user text not null,
-    userType varchar(20) DEFAULT 'user'
+    user_type varchar(20) DEFAULT 'user'
 );
 
 CREATE INDEX idx_nome_completo ON usuario(nome,sobrenome);
@@ -65,5 +65,5 @@ CREATE TABLE entrega_hist(
  FOREIGN KEY (pedido_fk) REFERENCES pedido(id_pedido) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-INSERT INTO usuario( nome, sobrenome, cpf, email, senha, endereco_user, userType) 
+INSERT INTO usuario( nome, sobrenome, cpf, email, senha, endereco_user, user_type) 
 VALUES ('Admin','Admin',null,'adm@adm.com','123','judas perdeu as botas', 'ADM');

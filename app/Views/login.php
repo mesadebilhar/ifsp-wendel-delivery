@@ -41,12 +41,12 @@
                 <div class="small-space"></div>
 
                 <!--@Formulário Login-->
-                <form action="" method="post">
+                <form action="/" method="post">
                 <?php echo csrf_field(); ?>
                 <div class="grid">
                 <div class="s8 m4"></div>
                 <span class="snackbar error">
-                    <?php echo $msg ?? '' ?>
+                    <? session()->getFlashdata('msg')?>
                 </span>
                 <div id="login" class="page left active padding border round s10 m5">
                     <!--@Email Formulário-->
@@ -67,8 +67,10 @@
                     <!--Senha Formulário@-->
                 </div>
                 <!--Formulário Login@-->
+             
 
                 <!--@Formulário Registrar-->
+                
                 <div id="registrar" class="page left padding border round s10 m5">
                     <h5>Criar conta</h5>
                     <div class="left-align field border">
@@ -92,12 +94,13 @@
                         <input type="password" name="senha">
                     </div>
                     <div class="left-align top-padding">
-                        <button class="primary" name="info" value="registrar"><i>login</i> Cadastrar </button>
+                        <button class="primary" type="submit" formaction="/registrar" name="info" value="registrar"><i>login</i> Cadastrar </button>
                     </div>
+                       </form>
                     <!--Formulário Registrar@-->
                 </div>
                 </div>
-                </form>
+
                 <!--Formulário Login@-->
 
                 <div class="small-space padding"></div>
