@@ -15,4 +15,6 @@ Projeito feito em PHP para a aula do professor Wendel
 
 ![image](./z-IMAGENS/14e21f1f-a1f9-4e5f-94c1-c1090e70f6f6.jpg)
 
+![image](./z-IMAGENS/image2.png)
+
 **Criado por:** joao pedro (silva) & Ana "Schin" Beatriz 
