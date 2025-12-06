@@ -5,11 +5,12 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-// // $routes->get('/', 'Login::index'); <- Testar
-// $routes->get('/home', 'Home::index');
 
-// $routes->match(['get', 'post'],'/', 'Login::logar');
-$routes->match(['get','post'], '/', 'Login::logar');        // login
-$routes->match(['get','post'], '/registrar', 'Login::registrar'); // registrar
+
+$routes->get('/', 'Login::index'); 
+$routes->post( '/login', 'Login::logar'); //endpoint sem view        
+$routes->post( '/registrar', 'Login::registrar'); //endpoint sem view
 $routes->get('/home', 'Home::index');
 $routes->get('/logout', 'Logout::index');
+$routes->post('/teste', 'Login::testeSession'); //endpoint sem view
+$routes->get('/destruir', 'Login::logoutTeste'); //endpoint sem view

@@ -9,35 +9,19 @@ class Login extends BaseController
 {
     public function index()
     {
+     // tem session redireciona para a home
+        if($this->session->get('id_user')){
+            return redirect()->to('/home');
+        }
         return view('login');
     }
 
 //https://codeigniter.com/user_guide/outgoing/response.html
 
     public function logar(){
-        // $data['msg'] = '';
-        // if($this->request->is('post'))
-        // {
-        //     $usuarioModel = model('UsuarioModel');
-        //     $usuarioData = $this->request->getPost();
-        //     $checkUsuario = $usuarioModel->check(
-        //         $usuarioData['email'],$usuarioData['senha']
-        //     );
-        //     if(! $checkUsuario){
-        //         $data['msg'] = 'E-mail ou senha incorretos!';
-        //     }else{
-        //         $this->session->set('id_user', $checkUsuario->id_user);
-        //         $this->session->set('nome', $checkUsuario->nome);
-        //         $this->session->set('email', $checkUsuario->email);
-        //         $this->session->set('endereco', $checkUsuario->endereco_user);
-        //         $this->session->set('userType', $checkUsuario->user_type);
-        //         return redirect()->to('/home');
-        //     }
-        //     return view('login', $data);
-        // }
-        
-            if($this->request->is('post'))
+    if($this->request->is('post'))
     {
+
         $usuarioModel = model('UsuarioModel');
         $email = $this->request->getPost('email');
         $senha = $this->request->getPost('senha');
@@ -45,11 +29,12 @@ class Login extends BaseController
         $checkUsuario = $usuarioModel->check($email, $senha);
 
         if(!$checkUsuario){
-            return redirect()->back()->with('msg', 'E-mail ou senha incorretos!');
+            $this->session->setFlashdata('erro','E-mail ou senha incorretos!');
+            return redirect()->to('/');
         }
 
         // cria sessão
-        session()->set([
+        $this->session->set([
             'id_user'   => $checkUsuario->id_user,
             'nome'      => $checkUsuario->nome,
             'email'     => $checkUsuario->email,
@@ -63,24 +48,45 @@ class Login extends BaseController
     }
 
     public function registrar(){
-        $data['msg'] = '';
         if($this->request->is('post')){
             $usuarioModel = model('UsuarioModel');
             try{
                 $usuarioData = $this->request->getPost();
                 $usuarioData['user_type'] = 'usuario';
+
+
+                if($usuarioModel->contaRegistrada($usuarioData['email'])) {
+                    $this->session->setFlashdata('erro', 'E-mail já cadastrado.');
+                    return redirect()->to('/');
+                }
                 if($usuarioModel->insert($usuarioData)) {
-                    $data['msg'] = "Usuário criado com sucesso";
+                    $this->session->setFlashdata('msg', 'Usuário criado com sucesso!');
                 }
                 else {
-                    $data['msg'] = "Erro ao criar usuário";
-                    $data['errors'] = $usuarioModel->errors();
+                    $this->session->setFlashdata('erro', 'Erro ao criar usuário.');
+                    $this->session->setFlashdata('errors', $usuarioModel->errors());
                 }
             }
             catch(\Exception $e) {
-                $data['msg'] = "Erro ao criar usuário: " . $e->getMessage();
+                $this->session->setFlashdata('erro', 'Erro ao criar usuário: ' . $e->getMessage());
             }
         }
-        return redirect()->to('/login')->withInput()->with('msg', $data['msg']);
+        return redirect()->to('/');
+    }
+
+    public function testeSession(){
+        $this->session->set([
+            'id_user'   => 1,
+            'nome'      => 'Teste',
+            'email'     => 'user@teste.com',
+            'endereco'  => 'Rua Teste, 123',
+            'user_type'  => 'user',
+        ]);
+        return redirect()->to('/home');
+    }
+
+    public function logoutTeste(){
+        $this->session->destroy();
+        return redirect()->to('/');
     }
 }

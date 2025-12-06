@@ -30,12 +30,24 @@
         <a href=""><i>fastfood</i>Pedidos</a>
         <a href=""><i>shopping_cart</i> Carrinho</a>
         <a href=""><i>two_wheeler</i>Entregas</a>
-        
+        <?php if($_SESSION['user_type'] == 'ADM') : ?>
+        <?=  '<a href=""><i>restaurant</i>Conf. Restaurant</a>' ?>
+        <?php endif; ?>
+        <?php if($_SESSION['user_type'] == 'ADM') : ?>
+        <?=  '<a href=""><i>restaurant</i>Gerenciar restaurantes e donos</a>'?>
+        <?php endif; ?>
+        <?php if($_SESSION['user_type'] == 'user' || $_SESSION['user_type'] == '') : ?>
+        <?=  '<a href=""><i>partner_exchange</i>Virar parceiro</a>'?>
+        <?php endif; ?>
         <a href=""><i>settings</i>Configurações</a>
         <div class="divider bottom-margin"></div>
+
+        <form action="/logout" class="responsive">
         <button class="top-margin responsive red5">
-            <a href="/logout" class="white-text">Sair</a>
+        <!-- <a href="/logout" class="white-text">Sair</a> -->
+        <p class="white-text">Sair</p>
         </button>
+        </form>
     </nav>
     <!-- Menu navegação lateral breakpoint large@ -->
     <!-- @Menu lateral breakpoint medium -->
@@ -48,7 +60,7 @@
         <a href=""><i>fastfood</i>Pedidos</a>
         <a href=""><i>shopping_cart</i> Carrinho</a>
         <a href=""><i>two_wheeler</i>Entregas</a>
-        
+        <a href=""><i>restaurant</i>Conf. Restaurant</a>
         <div class="divider bottom-margin"></div>
         <button class="top-margin responsive red5">
             <p class="white-text">Sair</p>
@@ -70,8 +82,8 @@
 
     <!-- @Seção Principal -->
     <main class="responsive max no-padding">
-        <img src="rainbow-vortex.svg" alt="" class="responsive small-height l bottom-round">
-        <img src="rainbow-vortex.svg" alt="" class="responsive small  m bottom-round">
+        <img src="https://i.pinimg.com/originals/43/b6/b1/43b6b1c35afba9f2a52da49dacfefefc.gif" alt="" class="responsive small-height l bottom-round">
+        <img src="https://i.pinimg.com/originals/43/b6/b1/43b6b1c35afba9f2a52da49dacfefefc.gif" alt="" class="responsive small  m bottom-round">
         <div class="responsive s padding primary">
             <p class=" black-text center-align">Sputniki</p>
         </div>

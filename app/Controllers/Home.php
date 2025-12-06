@@ -7,13 +7,12 @@ class Home extends BaseController
 {
     public function index()
     {
-        if(!session('id_user')) {
+        //https://codeigniter.com/user_guide/libraries/sessions.html#retrieving-session-data Corrigir.
+        if(!$this->session->get('id_user')) {
             return redirect()->to('/'); // volta pro login
         }
          $restauranteModel = model('RestauranteModel');
-         $UsuarioModel = model('UsuarioModel');
          $data['restaurante'] = $restauranteModel->getRestaurantes();
-         $data['usuario'] = $UsuarioModel->findAll(); //Num banco de dados grande isso nao eh aceitavel mas pra fins de estudo.
         // return print_r($data['usuario']);
         
         return  view('home', $data);

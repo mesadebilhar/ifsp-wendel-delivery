@@ -12,7 +12,7 @@ class UsuarioModel extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    =  ['nome','sobrenome','cpf','email','senha','endereco_user','userType'];
+    protected $allowedFields    =  ['nome','sobrenome','cpf','email','senha','endereco_user','user_type'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -66,10 +66,10 @@ class UsuarioModel extends Model
 
         return $buscaUsuario;
     }
-//     public function check($email, $senha)
-// {
-//     return $this->where('email', $email)
-//                 ->where('senha', $senha) 
-//                 ->first();
-// }
+
+    public function contaRegistrada($email)
+{
+    return $this->where('email', $email) 
+                ->first();
+}
 }
