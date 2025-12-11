@@ -30,23 +30,26 @@
         <a href=""><i>fastfood</i>Pedidos</a>
         <a href=""><i>shopping_cart</i> Carrinho</a>
         <a href=""><i>two_wheeler</i>Entregas</a>
-        <?php if($_SESSION['user_type'] == 'ADM') : ?>
-        <?=  '<a href=""><i>restaurant</i>Conf. Restaurant</a>' ?>
+        <?php if ($_SESSION['user_type'] == 'ADM') : ?>
+            <?= '<a href=""><i>restaurant</i>Conf. Restaurant</a>' ?>
         <?php endif; ?>
-        <?php if($_SESSION['user_type'] == 'ADM') : ?>
-        <?=  '<a href=""><i>restaurant</i>Gerenciar restaurantes e donos</a>'?>
+        <?php if ($_SESSION['user_type'] == 'ADM') : ?>
+            <?= '<a href=""><i>restaurant</i>Gerenciar restaurantes e donos</a>' ?>
         <?php endif; ?>
-        <?php if($_SESSION['user_type'] == 'user' || $_SESSION['user_type'] == '') : ?>
-        <?=  '<a href=""><i>partner_exchange</i>Virar parceiro</a>'?>
+        <?php if ($_SESSION['user_type'] == 'usuario') : ?>
+            <?= '<a href="/parceria"><i>partner_exchange</i>Virar parceiro</a>' ?>
+        <?php endif; ?>
+        <?php if ($_SESSION['user_type'] == 'dono' or $_SESSION['user_type'] == 'ADM') : ?>
+            <?= '<a href="/restaurante/restauranteForm"><i>partner_exchange</i>Criar Restaurante</a>' ?>
         <?php endif; ?>
         <a href=""><i>settings</i>Configurações</a>
         <div class="divider bottom-margin"></div>
 
         <form action="/logout" class="responsive">
-        <button class="top-margin responsive red5">
-        <!-- <a href="/logout" class="white-text">Sair</a> -->
-        <p class="white-text">Sair</p>
-        </button>
+            <button class="top-margin responsive red5">
+                <!-- <a href="/logout" class="white-text">Sair</a> -->
+                <p class="white-text">Sair</p>
+            </button>
         </form>
     </nav>
     <!-- Menu navegação lateral breakpoint large@ -->
@@ -74,7 +77,7 @@
         <a href=""><i>fastfood</i></a>
         <a href=""><i>shopping_cart</i> </a>
         <a href=""><i>two_wheeler</i></a>
-        
+
         <a href=""><i>settings</i></a>
 
     </nav>
@@ -95,24 +98,48 @@
         <!-- @Seção com cards -->
 
         <div class="grid">
-         <?php if(count($restaurante) > 0): foreach($restaurante as $rest): ?>
-        <article class="border s8 m4 l2">
-            <div class="row">
-                <img class="circle large" src="https://i.pinimg.com/736x/fa/96/b2/fa96b2846065dcb74de4414e939a4de4.jpg">
-                <div class="max">
-                    <h5><?php echo $rest->restaurante_nome?></h5>
-                    <p>Endereço: <?php echo $rest->endereco_restaurante?></p>
-                </div>
-            </div>
-            <nav>
-                <button>Visualizar</button>
-            </nav>
-            
-        </article>
-                <?php endforeach; endif; ?>
+            <?php if (count($restaurante) > 0): foreach ($restaurante as $rest): ?>
+                    <article class="border s8 m4 l2">
+                        <div class="row">
+                            <img class="circle large" src="https://i.pinimg.com/736x/fa/96/b2/fa96b2846065dcb74de4414e939a4de4.jpg">
+                            <div class="max">
+                                <h5><?php echo $rest->restaurante_nome ?></h5>
+                                <p>Endereço: <?php echo $rest->endereco_restaurante ?></p>
+                            </div>
+                        </div>
+                        <nav>
+                            <button>Visualizar</button>
+                        </nav>
+
+                    </article>
+            <?php endforeach;
+            endif; ?>
         </div>
-        <?php if(count($restaurante) == 0): echo '<h3 class="center-align">Nenhum restaurante cadastrado!</h3>'; endif;?>
+        <?php if (count($restaurante) == 0): echo '<h3 class="center-align">Nenhum restaurante cadastrado!</h3>';
+        endif; ?>
         <!-- Seção copm cards@ -->
+        <!-- @SNACCCC BARRRR -->
+        <?php if (session()->getFlashdata('msg')): ?>
+            <span id="snack" class="snackbar success active">
+                <?php echo session()->getFlashdata('msg') ?>
+            </span>
+        <?php endif; ?>
+        <!-- SNACCCC BARR@ -->
+
+        <script>
+            window.onload = function() {
+                //sair a snacc barrrrrrrrrrrrrr
+                let snacc = document.getElementById('snack');
+                snacc.addEventListener('click', (e) => {
+                    if (e.target == snacc) {
+                        snacc.classList.toggle('active');
+                    }
+                });
+                setTimeout(() => {
+                    snacc.classList.remove('active');
+                }, 3600);
+            }
+        </script>
     </main>
     <!-- Seção Principal@ -->
 </body>
